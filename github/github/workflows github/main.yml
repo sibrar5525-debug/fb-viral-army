@@ -1,0 +1,20 @@
+name: FB_VIRAL_ARMY_NONSTOP
+on:
+  push:
+  schedule:
+    - cron: '0 */2 * * *' # Har 2 ghante baad khud chalay ga
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install Tools
+        run: pip install -r requirements.txt
+      - name: Execute Army Strike
+        run: python bot.py
