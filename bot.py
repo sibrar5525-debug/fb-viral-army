@@ -2,46 +2,42 @@ import requests
 import time
 import random
 
-# Aapki Video ka Link
+# Aapki Medicine Wali Video ka ID
 VIDEO_URL = "https://m.facebook.com/1327170131980838"
 
-def get_free_proxies():
-    # Smart Proxy Rotation: Duniya bhar se IPs uthana
+def get_proxies():
+    # 1. Distributed Army: Free and Fast Proxies
     try:
-        response = requests.get("https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all")
-        return response.text.splitlines()
+        r = requests.get("https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all")
+        if r.status_code == 200:
+            return r.text.splitlines()
     except:
         return []
 
-def viral_army_strike():
-    proxies_list = get_free_proxies()
-    print(f"Loaded {len(proxies_list)} Proxy Soldiers!")
-
-    for proxy in proxies_list:
+def start_viral_loop():
+    print("--- CLOUD MISSION STARTED ---")
+    proxies = get_proxies()
+    
+    # 2. Human Behavior Bypass & Organic Combo
+    for ip in proxies[:100]: # Batch of 100 per run
         try:
-            # Human Behavior Bypass: Har bar alag pehchan
+            proxy_dict = {"http": f"http://{ip}", "https": f"http://{ip}"}
             headers = {
-                'User-Agent': random.choice([
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15'
-                ]),
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
                 'Referer': 'https://www.google.com.pk/'
             }
             
-            # Proxy set krna
-            proxies = {"http": f"http://{proxy}", "https": f"http://{proxy}"}
+            # Request sending
+            s = requests.Session()
+            s.get(VIDEO_URL, headers=headers, proxies=proxy_dict, timeout=12)
             
-            # Organic Combo: Pehle page load krna phr watch krna
-            session = requests.Session()
-            session.get(VIDEO_URL, headers=headers, proxies=proxies, timeout=10)
-            
-            # Viral Loop: Simulation of watching
-            watch_time = random.randint(30, 60)
-            print(f"Proxy {proxy} is watching for {watch_time}s...")
-            time.sleep(watch_time)
+            # 3. Viral Loop: Random Watch Time
+            watch = random.randint(35, 70)
+            print(f"Target Hit: {ip} | Watching: {watch}s")
+            time.sleep(watch)
             
         except:
-            continue # Agar ek proxy fail ho to agli pr jao
+            continue
 
 if __name__ == "__main__":
-    viral_army_strike()
+    start_viral_loop()
