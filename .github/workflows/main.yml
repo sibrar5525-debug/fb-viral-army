@@ -1,0 +1,20 @@
+name: CLOUD_ARMY_V1
+on:
+  push:
+  schedule:
+    - cron: '*/30 * * * *' # Yeh har 30 min baad khud chale ga
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install Tools
+        run: pip install requests
+      - name: Start Cloud Army
+        run: python bot.py
