@@ -2,42 +2,42 @@ import requests
 import time
 import random
 
-# Aapki Medicine Wali Video ka ID
 VIDEO_URL = "https://m.facebook.com/1327170131980838"
 
-def get_proxies():
-    # 1. Distributed Army: Free and Fast Proxies
-    try:
-        r = requests.get("https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all")
-        if r.status_code == 200:
-            return r.text.splitlines()
-    except:
-        return []
-
-def start_viral_loop():
-    print("--- CLOUD MISSION STARTED ---")
-    proxies = get_proxies()
+def start_power_mission():
+    print("🚀 Speed Multiplier Activated...")
+    # Behtreen Proxy Sources
+    sources = [
+        "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all",
+        "https://www.proxy-list.download/api/v1/get?type=http"
+    ]
     
-    # 2. Human Behavior Bypass & Organic Combo
-    for ip in proxies[:100]: # Batch of 100 per run
+    proxies = []
+    for s in sources:
+        try:
+            proxies.extend(requests.get(s).text.splitlines())
+        except: continue
+
+    print(f"Soldiers Ready: {len(proxies)}")
+
+    # Human Mimicry (Insani rawaiya)
+    for ip in proxies[:150]: 
         try:
             proxy_dict = {"http": f"http://{ip}", "https": f"http://{ip}"}
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Referer': 'https://www.google.com.pk/'
+                'User-Agent': random.choice(['Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)']),
+                'Accept-Language': 'en-US,en;q=0.9'
             }
             
-            # Request sending
-            s = requests.Session()
-            s.get(VIDEO_URL, headers=headers, proxies=proxy_dict, timeout=12)
-            
-            # 3. Viral Loop: Random Watch Time
-            watch = random.randint(35, 70)
-            print(f"Target Hit: {ip} | Watching: {watch}s")
-            time.sleep(watch)
-            
+            # Action
+            with requests.Session() as s:
+                s.get(VIDEO_URL, headers=headers, proxies=proxy_dict, timeout=15)
+                # Viral Loop Watch Time (3 min tak dekhna)
+                watch = random.randint(120, 180) 
+                print(f"🔥 Strike Success: {ip} | Time: {watch}s")
+                time.sleep(10) # Fast rotation
         except:
             continue
 
 if __name__ == "__main__":
-    start_viral_loop()
+    start_power_mission()
